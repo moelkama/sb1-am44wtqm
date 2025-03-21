@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Check, Menu, X, Star, Heart } from 'lucide-react';
 import clsx from 'clsx';
 import logo from './assets/logo.jpg';
+import emailjs from 'emailjs-com';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -57,13 +58,15 @@ function App() {
       <AnimatePresence>
         {showWelcome && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.2 }}
-            className="fixed inset-0 flex items-center justify-center bg-indigo-600 z-50"
-          >
-            <h1 className="text-6xl text-white font-['Lobster']">Welcome to Elkamel Store</h1>
-          </motion.div>
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.2 }}
+          className="fixed inset-0 flex items-center justify-center bg-indigo-600 z-50"
+        >
+          <h1 className="text-center w-full text-2xl sm:text-4xl md:text-6xl text-white font-['Lobster']">
+            Welcome to Elkamel Store
+          </h1>
+        </motion.div>
         )}
       </AnimatePresence>
 
@@ -77,7 +80,7 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <img src={logo} alt="Elkamel Store" className="h-8 w-8 rounded-full" />
+              <img src={logo} alt="Elkamel Store" className="h-12 w-12 rounded-full" />
               <span className="ml-2 text-xl font-['Lobster'] text-gray-900">Elkamel Store</span>
             </motion.div>
 
@@ -225,7 +228,7 @@ function App() {
                 <input
                   type="text"
                   id="name"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 />
               </div>
               <div>
@@ -235,7 +238,7 @@ function App() {
                 <input
                   type="email"
                   id="email"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 />
               </div>
               <div>
@@ -245,7 +248,7 @@ function App() {
                 <textarea
                   id="message"
                   rows={4}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="p-2 font-bold mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 />
               </div>
               <motion.button
@@ -283,10 +286,11 @@ function ProductCard({ name, price, types, rating }) {
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [isCommandFormOpen, setIsCommandFormOpen] = useState(false); // State for form visibility
   const [isOrderSubmitted, setIsOrderSubmitted] = useState(false); // State for order submission confirmation
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
 
   // State for form inputs
-  const [fullName, setFullName] = useState('Mohammed elkamal');
-  const [phone, setPhone] = useState('0613276891');
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleCommandClick = () => {
     setIsCommandFormOpen(true); // Open the command form
@@ -294,24 +298,38 @@ function ProductCard({ name, price, types, rating }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Show loading indicator
 
     // Prepare the data to send
     const orderData = {
       name: fullName,
       phone: phone,
+      articleName: name, // The name of the product/article
       item: selectedImage, // The currently selected product image
     };
+
+    try {
+      await emailjs.send(
+        'service_yz7s7a6', // Replace with your EmailJS service ID
+        'template_epjkkrt', // Replace with your EmailJS template ID
+        orderData, // Pass the orderData object directly
+        'vSlM4dzbfh-MbQPdq' // Replace with your EmailJS user ID
+      );
 
       console.log('Order submitted successfully:', orderData);
 
       // Show confirmation component
       setIsOrderSubmitted(true);
+      setIsCommandFormOpen(false); // Close the form
       setTimeout(() => {
         setIsOrderSubmitted(false); // Hide confirmation after 3 seconds
-        setIsCommandFormOpen(false); // Close the form
-        setFullName(''); // Reset form fields
-        setPhone('');
       }, 3000);
+    } catch (error) {
+      console.error('Error submitting order:', error); // Log the error
+      alert('Failed to submit order. Please try again.');
+    } finally {
+      setIsLoading(false); // Hide loading indicator
+    }
   };
 
   return (
@@ -439,29 +457,30 @@ function ProductCard({ name, price, types, rating }) {
               onClick={(e) => e.stopPropagation()} // Prevent modal from closing on inside click
             >
               {/* Close Button */}
-              <button
+              {/* <button
                 aria-label="Close"
                 className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
                 onClick={() => setIsCommandFormOpen(false)}
               >
                 <X className="w-6 h-6" />
-              </button>
+              </button> */}
 
               {/* Form Title */}
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Place Your Order</h2>
+              <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Place Your Order</h2>
 
               {/* Form */}
               <form className="space-y-4" onSubmit={handleFormSubmit}>
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                    Full Name
+                    Name
                   </label>
                   <input
                     type="text"
                     id="fullName"
+                    placeholder='Name'
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="p-4 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -472,19 +491,25 @@ function ProductCard({ name, price, types, rating }) {
                   <input
                     type="tel"
                     id="phone"
+                    placeholder='06xxxxxxxx'
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="p-4 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
                 <motion.button
                   type="submit"
-                  className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors"
+                  className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  disabled={isLoading} // Disable button when loading
                 >
-                  Submit Order
+                  {isLoading ? (
+                    <div className="spinner"></div> // Show spinner when loading
+                  ) : (
+                    'Submit Order'
+                  )}
                 </motion.button>
               </form>
             </motion.div>
