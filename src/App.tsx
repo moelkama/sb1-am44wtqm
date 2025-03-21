@@ -385,6 +385,7 @@ function ProductCard({ name, price, types, rating }) {
         {/* Image Container */}
         <div className="relative aspect-[4/5] overflow-hidden">
           {/* Large Product Image */}
+          <button onClick={handleCommandClick} aria-label="Command" className="absolute inset-0 z-10">
           <motion.img
             src={selectedImage}
             alt={name}
@@ -394,6 +395,7 @@ function ProductCard({ name, price, types, rating }) {
             loading="lazy"
             onLoad={() => setIsImageLoading(false)}
           />
+          </button>
           {isImageLoading && (
             <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
           )}
@@ -524,7 +526,7 @@ function ProductCard({ name, price, types, rating }) {
                     required
                   />
                   {nameError && (
-                    <p className="text-red-500 text-sm mt-1">{nameError}</p>
+                    <p className="font-bold text-red-500 text-sm mt-1">{nameError}</p>
                   )}
                 </div>
                 <div>
@@ -541,7 +543,7 @@ function ProductCard({ name, price, types, rating }) {
                     required
                   />
                   {phoneError && (
-                    <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+                    <p className="font-bold text-red-500 text-sm mt-1">{phoneError}</p>
                   )}
                 </div>
                 <motion.button
