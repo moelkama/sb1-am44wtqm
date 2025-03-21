@@ -280,6 +280,7 @@ function NavLink({ href, children, isMobile }) {
     </a>
   );
 }
+
 function ProductCard({ name, price, types, rating }) {
   const [isHovered, setIsHovered] = useState(false);
   const [selectedImage, setSelectedImage] = useState(types[0]); // Default to the first image
@@ -291,13 +292,51 @@ function ProductCard({ name, price, types, rating }) {
   // State for form inputs
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  // const [isValidForm, setIsValidForm] = useState(false);
 
   const handleCommandClick = () => {
     setIsCommandFormOpen(true); // Open the command form
   };
 
+  const handleNameChange = (e) => {
+    setFullName(e.target.value);
+    // validateForm(); // Validate the form on input change
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+    // validateForm(); // Validate the form on input change
+  }
+
+  const validateForm = () => {
+    let isValid = true;
+
+    // Name validation
+    if (fullName.length > 30) {
+      setNameError('Name must be less than 30 characters.');
+      isValid = false;
+    } else {
+      setNameError('');
+    }
+
+    // Moroccan phone number validation
+    const moroccanPhoneRegex = /^0[5-7]\d{8}$/; // Matches Moroccan phone numbers starting with 05, 06, or 07
+    if (!moroccanPhoneRegex.test(phone)) {
+      setPhoneError('Please enter a valid phone number.');
+      isValid = false;
+    } else {
+      setPhoneError('');
+    }
+    return isValid;
+  };
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
+     // Validate the form before submission
+    if (!validateForm()) {
+      return; // Stop submission if validation fails
+    }
     setIsLoading(true); // Show loading indicator
 
     // Prepare the data to send
@@ -456,17 +495,18 @@ function ProductCard({ name, price, types, rating }) {
               className="bg-white rounded-lg p-6 w-full max-w-md relative"
               onClick={(e) => e.stopPropagation()} // Prevent modal from closing on inside click
             >
-              {/* Close Button */}
-              {/* <button
-                aria-label="Close"
-                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-                onClick={() => setIsCommandFormOpen(false)}
-              >
-                <X className="w-6 h-6" />
-              </button> */}
+              {/* Product Image */}
+              <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Make Your Order</h2>
+              <div className="mb-6 text-center">
+                <img
+                  src={selectedImage}
+                  alt={name}
+                  className="w-48 h-36 mx-auto object-cover rounded-lg shadow-md"
+                />
+                <h3 className="mt-2 text-lg font-semibold text-gray-900">{name}</h3>
+              </div>
 
               {/* Form Title */}
-              <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Place Your Order</h2>
 
               {/* Form */}
               <form className="space-y-4" onSubmit={handleFormSubmit}>
@@ -477,12 +517,15 @@ function ProductCard({ name, price, types, rating }) {
                   <input
                     type="text"
                     id="fullName"
-                    placeholder='Name'
+                    placeholder="Name"
                     value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    onChange={handleNameChange}
                     className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
+                  {nameError && (
+                    <p className="text-red-500 text-sm mt-1">{nameError}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
@@ -491,12 +534,15 @@ function ProductCard({ name, price, types, rating }) {
                   <input
                     type="tel"
                     id="phone"
-                    placeholder='06xxxxxxxx'
+                    placeholder="06xxxxxxxx"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={handlePhoneChange}
                     className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
+                  {phoneError && (
+                    <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+                  )}
                 </div>
                 <motion.button
                   type="submit"
