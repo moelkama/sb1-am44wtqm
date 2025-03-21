@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Check, Menu, X, Star, Heart } from 'lucide-react';
 import clsx from 'clsx';
-import logo from './assets/logo.svg';
+import logo from './assets/logo.jpg';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
