@@ -641,7 +641,7 @@ function Footer() {
             <div className="flex space-x-4">
               {/* Instagram */}
               <a
-                href="https://www.instagram.com/yourprofile"
+                href="https://www.instagram.com/elkamelstore/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-indigo-500 transition-colors"
@@ -675,7 +675,7 @@ function Footer() {
 
               {/* WhatsApp */}
               <a
-                href="https://wa.me/yourphonenumber"
+                href="https://wa.me/0613276891"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-indigo-500 transition-colors"
