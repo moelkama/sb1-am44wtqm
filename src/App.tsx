@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Check, Menu, X, Star, Heart } from 'lucide-react';
 import clsx from 'clsx';
+import logo from './assets/logo.svg';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,7 +77,7 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <img src="/logo.jpg" alt="Elkamel Store" className="h-8 w-8 rounded-full" />
+              <img src={logo} alt="Elkamel Store" className="h-8 w-8 rounded-full" />
               <span className="ml-2 text-xl font-['Lobster'] text-gray-900">Elkamel Store</span>
             </motion.div>
 
