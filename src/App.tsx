@@ -460,7 +460,7 @@ function ProductCard({ name, price, types, rating }) {
                     id="fullName"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="p-4 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -473,7 +473,7 @@ function ProductCard({ name, price, types, rating }) {
                     id="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="p-4 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
