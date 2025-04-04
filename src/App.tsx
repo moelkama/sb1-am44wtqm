@@ -236,12 +236,57 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+
+      <video src="/background.mp4" type="video/mp4"></video>
+    <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-[1700px] object-cover"
+        >
+          <source src="/assets/background.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          Your browser does  support the video tag.
+        </video>
+        {/* Dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+      </div>
+
+      {/* Content (relative z-index to appear above video) */}
+      <div className="max-w-7xl mx-auto relative z-10">
+        <motion.div
+          className="text-center"
+          initial="initial"
+          animate="animate"
+          variants={fadeIn}
+        >
+          <h1 className="text-5xl md:text-6xl font-['Lobster'] text-white mb-6">
+            Discover Your Style
+          </h1>
+          <p className="text-2xl text-gray-200 mb-8 max-w-2xl mx-auto">
+            Premium accessories for the modern fashion enthusiast.
+          </p>
+          <motion.button
+            className="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => (window.location.href = "/#products")}
+          >
+            Shop Now
+          </motion.button>
+        </motion.div>
+      </div>
+    </section>
+      {/* <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center" initial="initial" animate="animate" variants={fadeIn}>
             <h1 className="text-5xl md:text-6xl font-['Lobster'] text-gray-900 mb-6">Discover Your Style</h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Premium clothing and accessories for the modern fashion enthusiast.
+            <p className="text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              Premium accessories for the modern fashion enthusiast.
             </p>
             <motion.button
               className="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors"
@@ -253,7 +298,7 @@ function App() {
             </motion.button>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Products Section */}
       <section id="products" className="py-20 bg-white">
