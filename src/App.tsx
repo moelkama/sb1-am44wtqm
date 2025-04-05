@@ -240,7 +240,7 @@ function App() {
               Discover Your Style
             </h1>
             <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
-              Premium accessories for the modern fashion enthusiast.
+              Stylish accessories for today's trends
             </p>
             <motion.button
               className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
