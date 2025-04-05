@@ -214,46 +214,49 @@ function App() {
         )}
       </nav>
 
-      <section className="h-scr relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src={b} type="video/mp4" />
-            Your browser does support the video tag.
-          </video>
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        </div>
+      <section className="min-h-screen relative px-4 sm:px-6 lg:px-8 overflow-hidden">
+  {/* Background video */}
+  <div className="absolute inset-0 z-0">
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full object-cover"
+    >
+      <source src={b} type="video/mp4" />
+      Your browser does support the video tag.
+    </video>
+    {/* Overlay if needed */}
+    {/* <div className="absolute inset-0 bg-black bg-opacity-40"></div> */}
+  </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div
-            className="text-center"
-            initial="initial"
-            animate="animate"
-            variants={fadeIn}
-          >
-            <h1 className="text-5xl font-bold md:text-6xl font-['Lobster'] text-white mb-6">
-              Discover Your Style
-            </h1>
-            <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
-              Stylish accessories for today's trends
-            </p>
-            <motion.button
-              className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
-              px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => (window.location.href = "/#products")}
-            >
-              Shop Now
-            </motion.button>
-          </motion.div>
-        </div>
-      </section>
+  {/* Centered content */}
+  <div className="absolute inset-0 flex items-center justify-center z-10">
+    <motion.div 
+      className="text-center max-w-7xl w-full px-4"
+      initial="initial"
+      animate="animate"
+      variants={fadeIn}
+    >
+      <h1 className="text-5xl font-bold md:text-6xl font-['Lobster'] text-white mb-6">
+        Discover Your Style
+      </h1>
+      <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
+        Stylish accessories for today's trends
+      </p>
+      <motion.button
+        className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
+        px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => (window.location.href = "/#products")}
+      >
+        Shop Now
+      </motion.button>
+    </motion.div>
+  </div>
+</section>
 
       <section id="products" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
