@@ -3,30 +3,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Check, Menu, X, Star, Heart } from 'lucide-react';
 import clsx from 'clsx';
 import logo from './assets/logo.jpg';
+import b from './assets/b.mp4';
 import emailjs from 'emailjs-com';
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogoClick = () => {
-    setIsModalOpen(!isModalOpen); // Toggle modal visibility
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
     <>
-      {/* Logo Button */}
       <motion.div
         className="flex items-center cursor-pointer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        onClick={handleLogoClick} // Make it clickable
+        onClick={handleLogoClick}
       >
         <img src={logo} alt="Elkamel Store" className="h-12 w-12 rounded-full" />
         <span className="ml-2 text-xl font-black text-gray-900">Elkamel Store</span>
       </motion.div>
 
-      {/* Modal with Logo and Social Media Icons */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -35,28 +34,23 @@ const Header = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
             className="h-screen fixed inset-0 flex items-center justify-center bg-black/90 z-50"
-            onClick={() => setIsModalOpen(false)} // Close modal on outside click
+            onClick={() => setIsModalOpen(false)}
           >
             <motion.div
-              className="  p-8 text-center"
-              onClick={(e) => e.stopPropagation()} // Prevent modal from closing on inside click
+              className="p-8 text-center"
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Logo */}
               <img
                 src={logo}
                 alt="Elkamel Store"
                 className="h-80 w-80 rounded-full mx-auto mb-10"
               />
-              {/* <h2 className="text-2xl font-bold tex-black mb-6">Elkamel Store</h2> */}
-
-              {/* Social Media Icons */}
               <div className="flex justify-center space-x-6">
-                {/* Instagram */}
                 <a
                   href="https://www.instagram.com/yourprofile"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-100 hover:text-indigo-600 transition-colors"
+                  className="text-white hover:text-purple-400 transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,12 +62,11 @@ const Header = () => {
                   </svg>
                 </a>
 
-                {/* Facebook */}
                 <a
                   href="https://www.facebook.com/yourprofile"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-100 hover:text-indigo-600 transition-colors"
+                  className="text-white hover:text-purple-400 transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -85,12 +78,11 @@ const Header = () => {
                   </svg>
                 </a>
 
-                {/* WhatsApp */}
                 <a
                   href="https://wa.me/yourphonenumber"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-100 hover:text-indigo-600 transition-colors"
+                  className="text-white hover:text-purple-400 transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -163,34 +155,23 @@ function App() {
       <AnimatePresence>
         {showWelcome && (
           <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.2 }}
-          className="fixed inset-0 flex items-center justify-center bg-indigo-600 z-50"
-        >
-          <h1 className="text-center w-full text-2xl sm:text-4xl md:text-6xl text-white font-['Lobster']">
-            Welcome to Elkamel Store
-          </h1>
-        </motion.div>
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.2 }}
+            className="fixed inset-0 flex items-center justify-center bg-black z-50"
+          >
+            <h1 className="text-center w-full text-5xl sm:text-4xl md:text-6xl text-slate-200 font-black font-['Lobster']">
+              Welcome to Elkamel Store
+            </h1>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Navigation */}
       <nav className="fixed w-full bg-white/80 backdrop-blur-sm z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Header />
-            {/* <motion.div
-              className="flex items-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <img src={logo} alt="Elkamel Store" className="h-12 w-12 rounded-full" />
-              <span className="ml-2 text-xl font-black text-gray-900">Elkamel Store</span>
-            </motion.div> */}
 
-            {/* Desktop Navigation */}
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4 font-bold text-xl">
                 <NavLink href="#products">Products</NavLink>
@@ -199,12 +180,11 @@ function App() {
               </div>
             </div>
 
-            {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 aria-label="Toggle menu"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-700 hover:text-indigo-600 transition-colors"
+                className="text-purple-600 hover:text-indigo-800 transition-colors"
               >
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -212,7 +192,6 @@ function App() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <motion.div
             className="md:hidden"
@@ -235,72 +214,47 @@ function App() {
         )}
       </nav>
 
-      {/* Hero Section */}
-
-      <video src="/background.mp4" type="video/mp4"></video>
-    <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-[1700px] object-cover"
-        >
-          <source src="/assets/background.mp4" type="video/mp4" />
-          {/* Fallback for browsers that don't support video */}
-          Your browser does  support the video tag.
-        </video>
-        {/* Dark overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-      </div>
-
-      {/* Content (relative z-index to appear above video) */}
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          className="text-center"
-          initial="initial"
-          animate="animate"
-          variants={fadeIn}
-        >
-          <h1 className="text-5xl md:text-6xl font-['Lobster'] text-white mb-6">
-            Discover Your Style
-          </h1>
-          <p className="text-2xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            Premium accessories for the modern fashion enthusiast.
-          </p>
-          <motion.button
-            className="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => (window.location.href = "/#products")}
+      <section className="h-scr relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
           >
-            Shop Now
-          </motion.button>
-        </motion.div>
-      </div>
-    </section>
-      {/* <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div className="text-center" initial="initial" animate="animate" variants={fadeIn}>
-            <h1 className="text-5xl md:text-6xl font-['Lobster'] text-gray-900 mb-6">Discover Your Style</h1>
-            <p className="text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <source src={b} type="video/mp4" />
+            Your browser does support the video tag.
+          </video>
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            className="text-center"
+            initial="initial"
+            animate="animate"
+            variants={fadeIn}
+          >
+            <h1 className="text-5xl font-bold md:text-6xl font-['Lobster'] text-white mb-6">
+              Discover Your Style
+            </h1>
+            <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
               Premium accessories for the modern fashion enthusiast.
             </p>
             <motion.button
-              className="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors"
+              className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
+              px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => (window.location.href = '/#products')}
+              onClick={() => (window.location.href = "/#products")}
             >
               Shop Now
             </motion.button>
           </motion.div>
         </div>
-      </section> */}
+      </section>
 
-      {/* Products Section */}
       <section id="products" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -322,7 +276,6 @@ function App() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
       <section id="portfolio" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -356,7 +309,6 @@ function App() {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section id="contact" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -404,7 +356,7 @@ function App() {
               </div>
               <motion.button
                 type="submit"
-                className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors"
+                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -424,7 +376,7 @@ function NavLink({ href, children, isMobile }) {
     <a
       href={href}
       className={clsx(
-        'text-gray-700 hover:text-indigo-600 transition-colors',
+        'text-gray-700 hover:text-purple-600 transition-colors',
         isMobile ? 'block px-3 py-2 text-base font-medium' : 'px-3 py-2 text-sm font-medium'
       )}
     >
@@ -435,37 +387,31 @@ function NavLink({ href, children, isMobile }) {
 
 function ProductCard({ name, price, types, rating }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(types[0]); // Default to the first image
+  const [selectedImage, setSelectedImage] = useState(types[0]);
   const [isImageLoading, setIsImageLoading] = useState(true);
-  const [isCommandFormOpen, setIsCommandFormOpen] = useState(false); // State for form visibility
-  const [isOrderSubmitted, setIsOrderSubmitted] = useState(false); // State for order submission confirmation
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
-
-  // State for form inputs
+  const [isCommandFormOpen, setIsCommandFormOpen] = useState(false);
+  const [isOrderSubmitted, setIsOrderSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  // const [isValidForm, setIsValidForm] = useState(false);
 
   const handleCommandClick = () => {
-    setIsCommandFormOpen(true); // Open the command form
+    setIsCommandFormOpen(true);
   };
 
   const handleNameChange = (e) => {
     setFullName(e.target.value);
-    // validateForm(); // Validate the form on input change
   };
 
   const handlePhoneChange = (e) => {
     setPhone(e.target.value);
-    // validateForm(); // Validate the form on input change
-  }
+  };
 
   const validateForm = () => {
     let isValid = true;
 
-    // Name validation
     if (fullName.length > 30) {
       setNameError('Name must be less than 30 characters.');
       isValid = false;
@@ -473,8 +419,7 @@ function ProductCard({ name, price, types, rating }) {
       setNameError('');
     }
 
-    // Moroccan phone number validation
-    const moroccanPhoneRegex = /^0[5-7]\d{8}$/; // Matches Moroccan phone numbers starting with 05, 06, or 07
+    const moroccanPhoneRegex = /^0[5-7]\d{8}$/;
     if (!moroccanPhoneRegex.test(phone)) {
       setPhoneError('Please enter a valid phone number.');
       isValid = false;
@@ -483,43 +428,39 @@ function ProductCard({ name, price, types, rating }) {
     }
     return isValid;
   };
-  const handleFormSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-     // Validate the form before submission
-    if (!validateForm()) {
-      return; // Stop submission if validation fails
-    }
-    setIsLoading(true); // Show loading indicator
 
-    // Prepare the data to send
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+    setIsLoading(true);
+
     const orderData = {
       name: fullName,
       phone: phone,
-      articleName: name, // The name of the product/article
-      item: selectedImage, // The currently selected product image
+      articleName: name,
+      item: selectedImage,
     };
 
     try {
       await emailjs.send(
-        'service_yz7s7a6', // Replace with your EmailJS service ID
-        'template_epjkkrt', // Replace with your EmailJS template ID
-        orderData, // Pass the orderData object directly
-        'vSlM4dzbfh-MbQPdq' // Replace with your EmailJS user ID
+        'service_yz7s7a6',
+        'template_epjkkrt',
+        orderData,
+        'vSlM4dzbfh-MbQPdq'
       );
 
-      console.log('Order submitted successfully:', orderData);
-
-      // Show confirmation component
       setIsOrderSubmitted(true);
-      setIsCommandFormOpen(false); // Close the form
+      setIsCommandFormOpen(false);
       setTimeout(() => {
-        setIsOrderSubmitted(false); // Hide confirmation after 3 seconds
+        setIsOrderSubmitted(false);
       }, 3000);
     } catch (error) {
-      console.error('Error submitting order:', error); // Log the error
+      console.error('Error submitting order:', error);
       alert('Failed to submit order. Please try again.');
     } finally {
-      setIsLoading(false); // Hide loading indicator
+      setIsLoading(false);
     }
   };
 
@@ -534,19 +475,17 @@ function ProductCard({ name, price, types, rating }) {
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
       >
-        {/* Image Container */}
         <div className="relative aspect-[4/5] overflow-hidden">
-          {/* Large Product Image */}
           <button onClick={handleCommandClick} aria-label="Command" className="absolute inset-0 z-10">
-          <motion.img
-            src={selectedImage}
-            alt={name}
-            className="w-full h-full object-cover"
-            animate={{ scale: isHovered ? 1.1 : 1 }}
-            transition={{ duration: 0.4 }}
-            loading="lazy"
-            onLoad={() => setIsImageLoading(false)}
-          />
+            <motion.img
+              src={selectedImage}
+              alt={name}
+              className="w-full h-full object-cover"
+              animate={{ scale: isHovered ? 1.1 : 1 }}
+              transition={{ duration: 0.4 }}
+              loading="lazy"
+              onLoad={() => setIsImageLoading(false)}
+            />
           </button>
           {isImageLoading && (
             <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
@@ -558,7 +497,6 @@ function ProductCard({ name, price, types, rating }) {
             transition={{ duration: 0.3 }}
           />
 
-          {/* Quick Actions */}
           <motion.div
             className="absolute top-4 right-4"
             initial={{ opacity: 0 }}
@@ -567,16 +505,14 @@ function ProductCard({ name, price, types, rating }) {
           >
             <button
               aria-label="Add to favorites"
-              className="p-2 bg-white rounded-full shadow-md hover:bg-indigo-50 transition-colors"
+              className="p-2 bg-white rounded-full shadow-md hover:bg-purple-50 transition-colors"
             >
-              <Heart className="w-5 h-5 text-indigo-600" />
+              <Heart className="w-5 h-5 text-purple-600" />
             </button>
           </motion.div>
         </div>
 
-        {/* Content */}
         <div className="p-6">
-          {/* Rating */}
           <div className="flex items-center mb-2">
             {[...Array(5)].map((_, i) => (
               <Star
@@ -590,12 +526,10 @@ function ProductCard({ name, price, types, rating }) {
             <span className="ml-2 text-sm text-gray-600">{rating}</span>
           </div>
 
-          {/* Product Name */}
-          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
             {name}
           </h3>
 
-          {/* Thumbnails for Image Selection */}
           <div className="flex flex-wrap gap-2 mb-4">
             {types.map((image, index) => (
               <button
@@ -604,7 +538,7 @@ function ProductCard({ name, price, types, rating }) {
                 aria-label={`Select ${name} image ${index + 1}`}
                 className={clsx(
                   'w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 transition-all hover:scale-105',
-                  selectedImage === image ? 'border-indigo-600' : 'border-gray-200'
+                  selectedImage === image ? 'border-purple-600' : 'border-gray-200'
                 )}
               >
                 <img
@@ -617,11 +551,10 @@ function ProductCard({ name, price, types, rating }) {
             ))}
           </div>
 
-          {/* Price and Command Button */}
           <div className="flex items-center justify-between">
-            <p className="text-2xl font-bold text-indigo-600">{price}</p>
+            <p className="text-2xl font-bold text-purple-600">{price}</p>
             <motion.button
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+              className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleCommandClick}
@@ -632,7 +565,6 @@ function ProductCard({ name, price, types, rating }) {
         </div>
       </motion.div>
 
-      {/* Command Form Modal */}
       <AnimatePresence>
         {isCommandFormOpen && (
           <motion.div
@@ -640,16 +572,15 @@ function ProductCard({ name, price, types, rating }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-            onClick={() => setIsCommandFormOpen(false)} // Close modal on outside click
+            onClick={() => setIsCommandFormOpen(false)}
           >
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
               className="bg-white rounded-lg p-6 w-full max-w-md relative"
-              onClick={(e) => e.stopPropagation()} // Prevent modal from closing on inside click
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Product Image */}
               <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Make Your Order</h2>
               <div className="mb-6 text-center">
                 <img
@@ -660,9 +591,6 @@ function ProductCard({ name, price, types, rating }) {
                 <h3 className="mt-2 text-lg font-semibold text-gray-900">{name}</h3>
               </div>
 
-              {/* Form Title */}
-
-              {/* Form */}
               <form className="space-y-4" onSubmit={handleFormSubmit}>
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
@@ -674,7 +602,7 @@ function ProductCard({ name, price, types, rating }) {
                     placeholder="Name"
                     value={fullName}
                     onChange={handleNameChange}
-                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                     required
                   />
                   {nameError && (
@@ -691,7 +619,7 @@ function ProductCard({ name, price, types, rating }) {
                     placeholder="06xxxxxxxx"
                     value={phone}
                     onChange={handlePhoneChange}
-                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                     required
                   />
                   {phoneError && (
@@ -700,13 +628,13 @@ function ProductCard({ name, price, types, rating }) {
                 </div>
                 <motion.button
                   type="submit"
-                  className="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md flex items-center justify-center"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  disabled={isLoading} // Disable button when loading
+                  disabled={isLoading}
                 >
                   {isLoading ? (
-                    <div className="spinner"></div> // Show spinner when loading
+                    <div className="spinner"></div>
                   ) : (
                     'Submit Order'
                   )}
@@ -717,7 +645,6 @@ function ProductCard({ name, price, types, rating }) {
         )}
       </AnimatePresence>
 
-      {/* Order Confirmation Component */}
       <AnimatePresence>
         {isOrderSubmitted && (
           <motion.div
@@ -731,7 +658,7 @@ function ProductCard({ name, price, types, rating }) {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.8, y: 50 }}
               transition={{ type: 'spring', stiffness: 100, damping: 10 }}
-              className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-8 text-center text-white shadow-2xl"
+              className="bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl p-8 text-center text-white shadow-2xl"
             >
               <motion.div
                 initial={{ scale: 0 }}
@@ -770,32 +697,26 @@ function PortfolioItem({ image, title, category }) {
   );
 }
 
-export default App;
-
 function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-6">
-        <div className=" grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* About Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4 flex flex-col items-center">
             <h3 className="text-xl font-bold">About Us</h3>
             <p className="text-gray-400 text-center">
-              We are dedicated to providing high-quality products and exceptional customer service. Explore our collection and find the perfect fit for your style.
+              We are dedicated to providing high-quality products and exceptional customer service.
             </p>
           </div>
 
-
-          {/* Social Media Section */}
           <div className="space-y-4 flex flex-col items-center">
             <h3 className="text-xl font-bold">Follow Us</h3>
             <div className="flex space-x-4">
-              {/* Instagram */}
               <a
                 href="https://www.instagram.com/elkamelstore/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-indigo-500 transition-colors"
+                className="text-gray-400 hover:text-purple-400 transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -807,11 +728,10 @@ function Footer() {
                 </svg>
               </a>
 
-              {/* Facebook */}
               <a
                 href="/"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-indigo-500 transition-colors"
+                className="text-gray-400 hover:text-purple-400 transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -823,12 +743,11 @@ function Footer() {
                 </svg>
               </a>
 
-              {/* WhatsApp */}
               <a
                 href="https://wa.me/0613276891"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-indigo-500 transition-colors"
+                className="text-gray-400 hover:text-purple-400 transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -843,7 +762,6 @@ function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
             &copy; {new Date().getFullYear()} Elkamel-Store. All rights reserved.
@@ -853,3 +771,5 @@ function Footer() {
     </footer>
   );
 }
+
+export default App;
