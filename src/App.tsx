@@ -130,35 +130,83 @@ function App() {
   };
 
   const products = [
-    {
-      name: 'Classic Leather Jacket',
-      price: '$199.99',
-      types: [
-        'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800',
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800',
-      ],
-      rating: 4.5,
-    },
-    {
-      name: 'Premium Denim Jeans',
-      price: '$89.99',
-      types: [
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800',
-        'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800',
-      ],
-      rating: 4.8,
-    },
-    {
-      name: 'Cotton T-Shirt',
-      price: '$29.99',
-      types: [
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800',
-        'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800',
-        'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800',
-      ],
-      rating: 4.3,
-    },
-  ];
+        {
+            name: "Mini Focus, Montre chronographe à quartz dorée pour homme",
+            types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/02/644046/1.jpg?7447", "https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/02/644046/3.jpg?7449", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/02/644046/2.jpg?7447"],
+            rating: 4.3,
+            price: 399.00
+        },
+        {
+            name: "Curren, Montre chronographe de sport résistante à l'eau",
+            types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/37/272036/1.jpg?0527", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/37/272036/3.jpg?0527"],
+            rating: 3.9,
+            price: 299.00
+        },
+        {
+            name: "CASIO, Pour Homme cadran argente - Dateur jours/mois - Bracelet cuir marron -MTP-1381L-7AVDF",
+            types: [
+              "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/1.jpg?3481",
+              "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/4.jpg?3481",
+                "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/7.jpg?3481",
+              ],
+            rating: 4.1,
+            price: 830.00
+        },
+        {
+            name : "Curren, Montre chronographe de sport résistante à l'eau",
+            types : ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/75/487536/1.jpg?6305", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/75/487536/2.jpg?6305"],
+            rating : 4.5,
+            price : 299.00
+        },
+        {
+            name: "Benyar, Montre chronographe sport à quartz pour homme, noir et argent",
+            types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/31/039116/1.jpg?8965", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/31/039116/3.jpg?8965", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/31/039116/4.jpg?8965"],
+            rating: 4.1,
+            price: 399.00
+        },
+        {
+          name: "Benyar, Montre chronographe à quartz argentée et noire pour homme",
+          types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/2.jpg?1525", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/1.jpg?1525", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/3.jpg?1525"],
+          rating: 4.7,
+          price: 349.00,
+        },
+        {
+          name: "Benyar, Montre à quartz chronographe pour homme avec bracelet en cuir marron et résistante à l'eau",
+          types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/1.jpg?3806","https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/04/573445/5.jpg?1759", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/4.jpg?5931", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/2.jpg?5981"],
+          rating: 4.5,
+          price: 349.00
+        },
+        {
+            name: "Casio Homme - Cadran noir - Bracelet en acier inydable - MTP-1374D-1AVDF", 
+            types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/64/069214/1.jpg?3003","https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/64/069214/2.jpg?9651",  "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/64/069214/3.jpg?9651"],
+            rating: 4.3,
+            price: 849.00
+        },
+        {
+            name : "Curren La montre Homme Top Chrono bleu marine",
+            types : ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/81/246336/1.jpg?7520", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/81/246336/2.jpg?7520"],
+            rating : 4.3,
+            price : 399.00
+        },
+        // {
+        //     name : "Benyar, Montre à quartz chronographe pour homme avec bracelet en cuir marron et résistante à l'eau",
+        //     types: ["https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/76/544046/1.jpg?3730", "https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/76/544046/2.jpg?3730", "https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/76/544046/3.jpg?3730"],
+        //     rating: 4.3,
+        //     price: 349.00
+        // },
+        // {
+        //     name : "Curren, Montre à quartz chronographe pour homme avec bracelet en cuir marron et résistante à l'eau",
+        //     types: ["https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/03/904445/1.jpg?3349", "https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/03/904445/2.jpg?3349", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/03/904445/4.jpg?3349"],
+        //     rating: 4.3,
+        //     price: 299.00
+        // },
+        // {
+        //     name : "Benyar Montre homme Benyar BY-514",
+        //     types: ["https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/12/360546/1.jpg?7049", "https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/12/360546/2.jpg?7049", "https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/12/360546/4.jpg?7049"],
+        //     rating: 4.3,
+        //     price: 299.00
+        // }
+    ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
