@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Check, Menu, X, Star, Heart } from 'lucide-react';
+import { Check, Menu, X, Star, Heart } from 'lucide-react';
 import clsx from 'clsx';
 import logo from './assets/logo.jpg';
 import b from './assets/b.mp4';
 import emailjs from 'emailjs-com';
+
+const smoothScroll = (id) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+};
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +33,7 @@ const Header = () => {
         onClick={handleLogoClick}
       >
         <img src={logo} alt="Elkamel Store" className="h-12 w-12 rounded-full" />
-        <span className="ml-2 text-xl font-black text-gray-900">Elkamel Store</span>
+        {/* <span className="ml-2 text-xl font-black text-gray-900">Elkamel Store</span> */}
       </motion.div>
 
       <AnimatePresence>
@@ -167,16 +177,16 @@ function App() {
         )}
       </AnimatePresence>
 
-      <nav className="fixed w-full bg-white/80 backdrop-blur-sm z-40">
+      <nav className="fixed w-full z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Header />
 
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4 font-bold text-xl">
-                <NavLink href="#products">Products</NavLink>
-                <NavLink href="#portfolio">Featured</NavLink>
-                <NavLink href="#contact">Contact</NavLink>
+              <div className="ml-10 flex items-baseline  space-x-4 font-bold text-md text-slate-300">
+                <a href="#products">Products</a>
+                <a href="#portfolio">Featured</a>
+                <a href="#contact">Contact</a>
               </div>
             </div>
 
@@ -227,14 +237,12 @@ function App() {
       <source src={b} type="video/mp4" />
       Your browser does support the video tag.
     </video>
-    {/* Overlay if needed */}
-    {/* <div className="absolute inset-0 bg-black bg-opacity-40"></div> */}
   </div>
 
   {/* Centered content */}
-  <div className="absolute inset-0 flex items-center justify-center z-10">
+  <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
     <motion.div 
-      className="text-center max-w-7xl w-full px-4"
+      className="text-center w-full px-4 flex flex-col items-center"
       initial="initial"
       animate="animate"
       variants={fadeIn}
@@ -245,15 +253,43 @@ function App() {
       <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
         Stylish accessories for today's trends
       </p>
-      <motion.button
-        className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
-        px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => (window.location.href = "/#products")}
-      >
-        Shop Now
-      </motion.button>
+      <div className="flex flex-col items-center">
+        <motion.button
+          className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
+          px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 
+          transition-all shadow-lg flex items-center justify-center gap-2"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => smoothScroll('products')}
+        >
+          Shop Now
+          <motion.span
+            animate={{
+              y: [0, 5, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="-rotate-90"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </motion.span>
+        </motion.button>
+      </div>
     </motion.div>
   </div>
 </section>
