@@ -246,9 +246,9 @@ function App() {
               <button
                 aria-label="Toggle menu"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-purple-600 hover:text-indigo-800 transition-colors"
+                className="text-slate-300 hover:text-indigo-400 transition-colors"
               >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
               </button>
             </div>
           </div>
