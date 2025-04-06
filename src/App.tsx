@@ -576,104 +576,114 @@ function ProductCard({ name, price, types, rating }) {
 
   return (
     <>
-      <motion.div
-        className="bg-white rounded-2xl shadow-lg overflow-hidden group relative"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
+<motion.div
+  className="bg-slate-200 rounded-2xl shadow-lg overflow-hidden group relative flex flex-col h-full"
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.5 }}
+  onHoverStart={() => setIsHovered(true)}
+  onHoverEnd={() => setIsHovered(false)}
+>
+  {/* Image Section */}
+  <div className="relative aspect-[4/5] overflow-hidden flex-shrink-0">
+    <button onClick={handleCommandClick} aria-label="Command" className="absolute inset-0 z-10">
+      <motion.img
+        src={selectedImage}
+        alt={name}
+        className="w-full h-full object-cover"
+        animate={{ scale: isHovered ? 1.1 : 1 }}
+        transition={{ duration: 0.4 }}
+        loading="lazy"
+        onLoad={() => setIsImageLoading(false)}
+      />
+    </button>
+    {isImageLoading && (
+      <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+    )}
+    <motion.div
+      className="absolute inset-0 bg-black/10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isHovered ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+    />
+
+    <motion.div
+      className="absolute top-4 right-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isHovered ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <button
+        aria-label="Add to favorites"
+        className="p-2 bg-white rounded-full shadow-md hover:bg-purple-50 transition-colors"
       >
-        <div className="relative aspect-[4/5] overflow-hidden">
-          <button onClick={handleCommandClick} aria-label="Command" className="absolute inset-0 z-10">
-            <motion.img
-              src={selectedImage}
-              alt={name}
-              className="w-full h-full object-cover"
-              animate={{ scale: isHovered ? 1.1 : 1 }}
-              transition={{ duration: 0.4 }}
-              loading="lazy"
-              onLoad={() => setIsImageLoading(false)}
-            />
-          </button>
-          {isImageLoading && (
-            <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+        <Heart className="w-5 h-5 text-purple-600" />
+      </button>
+    </motion.div>
+  </div>
+
+  {/* Content Section - grows to fill space */}
+  <div className="p-6 flex flex-col flex-grow">
+    <div className="flex items-center mb-2">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          className={clsx(
+            'w-4 h-4',
+            i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
           )}
-          <motion.div
-            className="absolute inset-0 bg-black/10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
+        />
+      ))}
+      <span className="ml-2 text-sm text-gray-600">{rating}</span>
+    </div>
+
+    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+      {name}
+    </h3>
+
+    <div className="flex flex-wrap gap-2 mb-4">
+      {types.map((image, index) => (
+        <button
+          key={index}
+          onClick={() => setSelectedImage(image)}
+          aria-label={`Select ${name} image ${index + 1}`}
+          className={clsx(
+            'w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 transition-all hover:scale-105',
+            selectedImage === image ? 'border-purple-600' : 'border-gray-200'
+          )}
+        >
+          <img
+            src={image}
+            alt={`Thumbnail ${index + 1}`}
+            className="w-full h-full object-cover"
+            loading="lazy"
           />
+        </button>
+      ))}
+    </div>
 
-          <motion.div
-            className="absolute top-4 right-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <button
-              aria-label="Add to favorites"
-              className="p-2 bg-white rounded-full shadow-md hover:bg-purple-50 transition-colors"
-            >
-              <Heart className="w-5 h-5 text-purple-600" />
-            </button>
-          </motion.div>
-        </div>
-
-        <div className="p-6">
-          <div className="flex items-center mb-2">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={clsx(
-                  'w-4 h-4',
-                  i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                )}
-              />
-            ))}
-            <span className="ml-2 text-sm text-gray-600">{rating}</span>
-          </div>
-
-          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
-            {name}
-          </h3>
-
-          <div className="flex flex-wrap gap-2 mb-4">
-            {types.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(image)}
-                aria-label={`Select ${name} image ${index + 1}`}
-                className={clsx(
-                  'w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 transition-all hover:scale-105',
-                  selectedImage === image ? 'border-purple-600' : 'border-gray-200'
-                )}
-              >
-                <img
-                  src={image}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center justify-between">
-            <p className="text-2xl font-bold text-purple-600">{price}</p>
-            <motion.button
-              className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleCommandClick}
-            >
-              Command
-            </motion.button>
-          </div>
-        </div>
-      </motion.div>
+    {/* Price and Button Section - pushes button to bottom */}
+    <div className="mt-auto pt-4">
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-xl font-bold text-emerald-500">{price}<span className="ml-1 text-slate-600">Dhs</span></p>
+      </div>
+      
+      {/* Full-width Command button */}
+      <motion.button
+        className="w-full px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
+        whileHover={{ 
+          scale: 1.02,
+          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+        }}
+        whileTap={{ scale: 0.98 }}
+        onClick={handleCommandClick}
+      >
+        Command
+      </motion.button>
+    </div>
+  </div>
+</motion.div>
 
       <AnimatePresence>
         {isCommandFormOpen && (
