@@ -236,7 +236,7 @@ function App() {
 
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline  space-x-4 font-bold text-md text-slate-300">
-                <a href="#products">Products</a>
+                <a className='hover:text-slate-800 transition-colors' href="#products">Products</a>
                 <a href="#portfolio">Featured</a>
                 <a href="#contact">Contact</a>
               </div>
@@ -255,25 +255,42 @@ function App() {
         </div>
 
         {isMenuOpen && (
-          <motion.div
-            className="md:hidden"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
-              <NavLink href="#products" isMobile>
-                Products
-              </NavLink>
-              <NavLink href="#portfolio" isMobile>
-                Featured
-              </NavLink>
-              <NavLink href="#contact" isMobile>
-                Contact
-              </NavLink>
-            </div>
-          </motion.div>
-        )}
+  <motion.div
+    className="md:hidden fixed inset-0 z-50"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.3 }}
+  >
+    {/* Backdrop with blur effect */}
+    <div 
+      className="absolute inset-0"
+      onClick={() => setIsMenuOpen(false)}
+    />
+    <motion.div
+      className="relative mx-4 mt-20 rounded-xl overflow-hidden"
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -20, opacity: 0 }}
+      transition={{ type: "spring", damping: 25 }}
+    >
+      {/* Glass effect menu */}
+      <div className="bg-white/20 backdrop-blur-lg shadow-xl">
+        <div className="px-5 py-3 space-y-4">
+          <a href="#products" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
+            Products
+          </a>
+          <a href="#portfolio" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
+            Featured
+          </a>
+          <a href="#contact" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
+            Contact
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  </motion.div>
+)}
       </nav>
 
       <section className="min-h-screen relative px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -786,7 +803,7 @@ function PortfolioItem({ image, title, category }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      <img src={image} alt={title} className="w-full h-64 object-cover" loading="lazy" />
+      <img src={image} alt={title} className="w-full h-64 object-cover" />
       <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="text-center text-white">
           <h3 className="text-xl font-bold mb-1">{title}</h3>
