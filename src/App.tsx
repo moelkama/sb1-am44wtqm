@@ -308,13 +308,6 @@ function App() {
           <source src={b} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        
-        {/* Optional loading indicator (uncomment if needed) */}
-        {/* {!videoLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )} */}
       </div>
 
   {/* Centered content */}
@@ -695,17 +688,17 @@ function ProductCard({ name, price, types, rating }) {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
-              className="bg-white rounded-lg p-6 w-full max-w-md relative"
+              className="bg-white shadow-2xl rounded-lg p-6 w-full max-w-md relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Make Your Order</h2>
+              {/* <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Make Your Order</h2> */}
               <div className="mb-6 text-center">
                 <img
                   src={selectedImage}
                   alt={name}
                   className="w-48 h-36 mx-auto object-cover rounded-lg shadow-md"
                 />
-                <h3 className="mt-2 text-lg font-semibold text-gray-900">{name}</h3>
+                {/* <h3 className="mt-2 text-lg font-semibold text-gray-900">{name}</h3> */}
               </div>
 
               <form className="space-y-4" onSubmit={handleFormSubmit}>
@@ -785,7 +778,7 @@ function ProductCard({ name, price, types, rating }) {
                 <Check className="w-16 h-16 mx-auto mb-4" />
               </motion.div>
               <h2 className="text-3xl font-bold mb-2">Order Confirmed!</h2>
-              <p className="text-lg">Thank you for your purchase.</p>
+              <p className="text-lg">Thank you for your visit.</p>
             </motion.div>
           </motion.div>
         )}
