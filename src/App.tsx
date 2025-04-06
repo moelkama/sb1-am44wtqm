@@ -4,6 +4,9 @@ import { Check, Menu, X, Star, Heart } from 'lucide-react';
 import clsx from 'clsx';
 import logo from './assets/logo.jpg';
 import b from './assets/b.mp4';
+import image1 from './assets/1.jpg';
+import image2 from './assets/2.jpg';
+import image3 from './assets/3.jpg';
 import emailjs from 'emailjs-com';
 
 const smoothScroll = (id) => {
@@ -115,6 +118,7 @@ const Header = () => {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -209,7 +213,7 @@ function App() {
     ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gray-900">
       <AnimatePresence>
         {showWelcome && (
           <motion.div
@@ -273,19 +277,28 @@ function App() {
       </nav>
 
       <section className="min-h-screen relative px-4 sm:px-6 lg:px-8 overflow-hidden">
-  {/* Background video */}
-  <div className="absolute inset-0 z-0">
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="w-full h-full object-cover"
-    >
-      <source src={b} type="video/mp4" />
-      Your browser does support the video tag.
-    </video>
-  </div>
+      {/* Background video with loading state */}
+      <div className={`absolute inset-0 z-0 ${!videoLoaded ? 'bg-black' : ''}`}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          onCanPlay={() => setVideoLoaded(true)}
+          onWaiting={() => setVideoLoaded(false)} // If video buffers
+        >
+          <source src={b} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        
+        {/* Optional loading indicator (uncomment if needed) */}
+        {/* {!videoLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )} */}
+      </div>
 
   {/* Centered content */}
   <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
@@ -378,17 +391,17 @@ function App() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <PortfolioItem
-              image="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=800"
+              image={image1}
               title="Summer Collection"
               category="Seasonal"
             />
             <PortfolioItem
-              image="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800"
+              image={image2}
               title="Autumn Essentials"
               category="Featured"
             />
             <PortfolioItem
-              image="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=800"
+              image={image3}
               title="Winter Wear"
               category="New Arrival"
             />
