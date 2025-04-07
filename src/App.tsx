@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Menu, X, Star, Heart } from 'lucide-react';
+import { Check, Menu, X, Star, Heart, Contact, Loader } from 'lucide-react';
 import clsx from 'clsx';
 import logo from './assets/logo.jpg';
 import b from './assets/b.mp4';
@@ -213,7 +213,7 @@ function App() {
     ];
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen">
       <AnimatePresence>
         {showWelcome && (
           <motion.div
@@ -324,11 +324,11 @@ function App() {
       <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
         Stylish accessories for today's trends
       </p>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center font-black text-xl">
         <motion.button
           className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
           px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 
-          transition-all shadow-lg flex items-center justify-center gap-2"
+          transition-all shadow-lg flex items-center justify-center gap-2 "
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => smoothScroll('products')}
@@ -419,65 +419,166 @@ function App() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeIn}
-          >
-            <h2 className="text-4xl font-['Lobster'] text-gray-900 mb-4">Get in Touch</h2>
-            <p className="text-xl text-gray-600">Questions about our products?</p>
-          </motion.div>
+      <ContactForm />
 
-          <div className="max-w-lg mx-auto">
-            <form className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="p-2 font-bold mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                />
-              </div>
-              <motion.button
-                type="submit"
-                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Send Message
-              </motion.button>
-            </form>
-          </div>
-        </div>
-      </section>
       <Footer />
     </div>
+  );
+}
+
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: 'elkamal',
+    email: 'elkamal@gmail.com',
+    message: 'hello world'
+  });
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      console.log('Form submitted:', formData);
+      
+      // Show success notification
+      setShowSuccess(true);
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      });
+      
+      setIsSubmitting(false);
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => setShowSuccess(false), 3000);
+    }, 1000);
+  };
+
+  const isFormValid = formData.name.trim() && 
+                     formData.email.trim() && 
+                     formData.message.trim();
+
+  return (
+    <>
+      <div id="contact" className="my-10 max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-center text-2xl font-black mb-6 text-gray-800">Contact Us</h2>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={4}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          
+          <button
+            type="submit"
+            disabled={!isFormValid || isSubmitting}
+            className={`w-full py-2 px-4 rounded-lg text-white font-medium ${
+              isSubmitting 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : isFormValid 
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg' 
+                  : 'bg-gray-400 cursor-not-allowed'
+            } transition-colors`}
+          >
+            {isSubmitting ? <div className="spinner"></div> : 'Send Message'}
+          </button>
+        </form>
+      </div>
+
+      {/* Success Notification - Fixed at bottom-right */}
+      {showSuccess && (
+  <div className="fixed bottom-4 right-4 z-50 animate-toast-in">
+    <div className="p-4 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg shadow-xl flex items-center space-x-3">
+      {/* Animated Checkmark Circle */}
+      <div className="relative">
+        <svg 
+          className="w-6 h-6 animate-checkmark-circle"
+          viewBox="0 0 24 24"
+        >
+          <circle 
+            className="stroke-current text-white/20" 
+            cx="12" 
+            cy="12" 
+            r="10" 
+            strokeWidth="2" 
+            fill="none"
+          />
+          <path 
+            className="stroke-current text-white" 
+            strokeDasharray="30" 
+            strokeDashoffset="30" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth="2" 
+            d="M6 12l4 4 8-8" 
+            style={{ animation: 'draw 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards' }}
+          />
+        </svg>
+      </div>
+      
+      {/* Message */}
+      <div>
+        <p className="font-medium">Success!</p>
+        <p className="text-sm opacity-90">Your message was sent successfully</p>
+      </div>
+    </div>
+  </div>
+)}
+    </>
   );
 }
 
