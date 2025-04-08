@@ -294,21 +294,35 @@ function App() {
       </nav>
 
       <section className="min-h-screen relative px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background video with loading state */}
-      <div className={`absolute inset-0 z-0 ${!videoLoaded ? 'bg-black' : ''}`}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-          onCanPlay={() => setVideoLoaded(true)}
-          onWaiting={() => setVideoLoaded(false)} // If video buffers
-        >
-          <source src={b} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+  {/* Black background that will show until video loads */}
+  <div className={`absolute inset-0 z-0 ${!videoLoaded ? 'bg-black' : ''}`}>
+    {/* Optional loading indicator */}
+    {!videoLoaded && (
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="animate-pulse text-white text-lg">Loading...</div>
       </div>
+    )}
+    
+    {/* Video element with improved loading handling */}
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"  // Important for Instagram browser
+      className={`w-full h-full object-cover ${!videoLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}
+      onCanPlay={() => {
+        setVideoLoaded(true);
+        // Force play in case Instagram browser blocks autoplay
+        document.querySelector('video')?.play().catch(e => console.log('Autoplay prevented:', e));
+      }}
+      onWaiting={() => setVideoLoaded(false)}
+      onError={() => setVideoLoaded(false)}
+    >
+      <source src={b} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
   {/* Centered content */}
   <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
@@ -364,7 +378,6 @@ function App() {
     </motion.div>
   </div>
 </section>
-
       <section id="products" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -428,9 +441,9 @@ function App() {
 
 function ContactForm() {
   const [formData, setFormData] = useState({
-    name: 'elkamal',
-    email: 'elkamal@gmail.com',
-    message: 'hello world'
+    name: '',
+    email: '',
+    message: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
