@@ -299,7 +299,6 @@ function App() {
     {/* Optional loading indicator */}
     {!videoLoaded && (
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="animate-pulse text-white text-lg">Loading...</div>
       </div>
     )}
     
