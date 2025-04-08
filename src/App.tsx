@@ -378,7 +378,7 @@ function App() {
             <p className="text-xl text-gray-600">Discover our latest collection</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 flex-wrap">
             {products.map((product, index) => (
               <ProductCard key={index} {...product} />
             ))}
@@ -719,7 +719,7 @@ function ProductCard({ name, price, types, rating }) {
         aria-label="Add to favorites"
         className="p-2 bg-white rounded-full shadow-md hover:bg-purple-50 transition-colors"
       >
-        <Heart className="w-5 h-5 text-purple-600" />
+        <Heart className="w-5 h-5 text-slate-500" />
       </button>
     </motion.div>
   </div>
