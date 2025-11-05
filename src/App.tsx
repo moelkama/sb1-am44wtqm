@@ -5,9 +5,9 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import logo from './assets/logo.jpg';
 import b from './assets/b.mp4';
-import image1 from './assets/1.jpg';
-import image2 from './assets/2.jpg';
-import image3 from './assets/3.jpg';
+import image1 from './assets/1.webp';
+import image2 from './assets/2.webp';
+import image3 from './assets/3.webp';
 import emailjs from 'emailjs-com';
 
 const smoothScroll = (id) => {
