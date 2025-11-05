@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Menu, X, Star, Heart, Contact, Loader } from 'lucide-react';
+import Image from 'next/image';
 import clsx from 'clsx';
 import logo from './assets/logo.jpg';
 import b from './assets/b.mp4';
@@ -35,7 +36,7 @@ const Header = () => {
         transition={{ duration: 0.5 }}
         onClick={handleLogoClick}
       >
-        <img src={logo} alt="Elkamel Store" className="h-12 w-12 rounded-full" />
+        <Image loading="lazy" height={48} width={48} src={logo} alt="Elkamel Store" className="h-12 w-12 rounded-full" />
         {/* <span className="ml-2 text-xl font-black text-gray-900">Elkamel Store</span> */}
       </motion.div>
 
@@ -53,8 +54,11 @@ const Header = () => {
               className="p-8 text-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <Image
+                height={320}
+                width={320}
                 src={logo}
+                loading="lazy"
                 alt="Elkamel Store"
                 className="h-80 w-80 rounded-full mx-auto mb-10"
               />
@@ -766,7 +770,9 @@ function ProductCard({ name, price, types, rating }) {
             selectedImage === image ? 'border-purple-600' : 'border-gray-200'
           )}
         >
-          <img
+          <Image
+            height={48}
+            width={48}
             src={image}
             alt={`Thumbnail ${index + 1}`}
             className="w-full h-full object-cover"
@@ -816,9 +822,12 @@ function ProductCard({ name, price, types, rating }) {
             >
               {/* <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Make Your Order</h2> */}
               <div className="mb-6 text-center">
-                <img
+                <Image
+                  height={144}
+                  width={192}
                   src={selectedImage}
                   alt={name}
+                  loading="lazy"
                   className="w-48 h-36 mx-auto object-cover rounded-lg shadow-md"
                 />
                 {/* <h3 className="mt-2 text-lg font-semibold text-gray-900">{name}</h3> */}
@@ -919,7 +928,7 @@ function PortfolioItem({ image, title, category }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      <img src={image} alt={title} className="w-full h-64 object-cover" />
+      <Image loading="lazy" height={256} width={320} src={image} alt={title} className="w-full h-64 object-cover" />
       <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="text-center text-white">
           <h3 className="text-xl font-bold mb-1">{title}</h3>
