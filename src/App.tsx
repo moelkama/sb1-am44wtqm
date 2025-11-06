@@ -217,6 +217,7 @@ function App() {
 
   return (
     <div className="min-h-screen">
+        <Analytics />
       <AnimatePresence>
         {showWelcome && (
           <motion.div
