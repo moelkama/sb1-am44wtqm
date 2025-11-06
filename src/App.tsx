@@ -10,6 +10,7 @@ import image3 from './assets/3.webp';
 import emailjs from 'emailjs-com';
 import { Analytics } from "@vercel/analytics/react"
 
+
 const smoothScroll = (id) => {
   const element = document.getElementById(id);
   if (element) {
