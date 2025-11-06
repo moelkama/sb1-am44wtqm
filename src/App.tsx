@@ -8,7 +8,7 @@ import image1 from './assets/1.webp';
 import image2 from './assets/2.webp';
 import image3 from './assets/3.webp';
 import emailjs from 'emailjs-com';
-import { address } from 'framer-motion/client';
+import { Analytics } from "@vercel/analytics/react"
 
 const smoothScroll = (id) => {
   const element = document.getElementById(id);
