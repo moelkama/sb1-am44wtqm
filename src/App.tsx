@@ -8,6 +8,7 @@ import image1 from './assets/1.webp';
 import image2 from './assets/2.webp';
 import image3 from './assets/3.webp';
 import emailjs from 'emailjs-com';
+import { address } from 'framer-motion/client';
 
 const smoothScroll = (id) => {
   const element = document.getElementById(id);
@@ -617,6 +618,8 @@ function ProductCard({ name, price, types, rating }) {
   const [isOrderSubmitted, setIsOrderSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [fullName, setFullName] = useState('');
+  const [address, setAddress] = useState('');
+  const [addressError, setAddressError] = useState('');
   const [phone, setPhone] = useState('');
   const [nameError, setNameError] = useState('');
   const [phoneError, setPhoneError] = useState('');
@@ -631,6 +634,10 @@ function ProductCard({ name, price, types, rating }) {
 
   const handlePhoneChange = (e) => {
     setPhone(e.target.value);
+  };
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
   };
 
   const validateForm = () => {
@@ -663,6 +670,7 @@ function ProductCard({ name, price, types, rating }) {
     const orderData = {
       name: fullName,
       phone: phone,
+      address: address,
       articleName: name,
       item: selectedImage,
     };
@@ -688,228 +696,245 @@ function ProductCard({ name, price, types, rating }) {
     }
   };
 
-  return (
-    <>
-<motion.div
-  className="bg-slate-200 rounded-2xl shadow-lg overflow-hidden group relative flex flex-col h-full"
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.5 }}
-  onHoverStart={() => setIsHovered(true)}
-  onHoverEnd={() => setIsHovered(false)}
->
-  {/* Image Section */}
-  <div className="relative aspect-[4/5] overflow-hidden flex-shrink-0">
-    <button onClick={handleCommandClick} aria-label="Command" className="absolute inset-0 z-10">
-      <motion.img
-        src={selectedImage}
-        alt={name}
-        className="w-full h-full object-cover"
-        animate={{ scale: isHovered ? 1.1 : 1 }}
-        transition={{ duration: 0.4 }}
-        loading="lazy"
-        onLoad={() => setIsImageLoading(false)}
-      />
-    </button>
-    {isImageLoading && (
-      <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
-    )}
-    <motion.div
-      className="absolute inset-0 bg-black/10"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isHovered ? 1 : 0 }}
-      transition={{ duration: 0.3 }}
-    />
-
-    <motion.div
-      className="absolute top-4 right-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isHovered ? 1 : 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <button
-        aria-label="Add to favorites"
-        className="p-2 bg-white rounded-full shadow-md hover:bg-purple-50 transition-colors"
-      >
-        <Heart className="w-5 h-5 text-slate-500" />
-      </button>
-    </motion.div>
-  </div>
-
-  {/* Content Section - grows to fill space */}
-  <div className="p-6 flex flex-col flex-grow">
-    <div className="flex items-center mb-2">
-      {[...Array(5)].map((_, i) => (
-        <Star
-          key={i}
-          className={clsx(
-            'w-4 h-4',
-            i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
-          )}
-        />
-      ))}
-      <span className="ml-2 text-sm text-gray-600">{rating}</span>
-    </div>
-
-    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
-      {name}
-    </h3>
-
-    <div className="flex flex-wrap gap-2 mb-4">
-      {types.map((image, index) => (
-        <button
-          key={index}
-          onClick={() => setSelectedImage(image)}
-          aria-label={`Select ${name} image ${index + 1}`}
-          className={clsx(
-            'w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 transition-all hover:scale-105',
-            selectedImage === image ? 'border-purple-600' : 'border-gray-200'
-          )}
-        >
-          <img
-            src={image}
-            alt={`Thumbnail ${index + 1}`}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </button>
-      ))}
-    </div>
-
-    {/* Price and Button Section - pushes button to bottom */}
-    <div className="mt-auto pt-4">
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-xl font-bold text-emerald-500">{price}<span className="ml-1 text-slate-600">Dhs</span></p>
-      </div>
-      
-      {/* Full-width Command button */}
-      <motion.button
-        className="w-full px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
-        whileHover={{ 
-          scale: 1.02,
-          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
-        }}
-        whileTap={{ scale: 0.98 }}
-        onClick={handleCommandClick}
-      >
-        Command
-      </motion.button>
-    </div>
-  </div>
-</motion.div>
-
-      <AnimatePresence>
-        {isCommandFormOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-            onClick={() => setIsCommandFormOpen(false)}
-          >
+    return (
+        <>
             <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
-              className="bg-white shadow-2xl rounded-lg p-6 w-full max-w-md relative"
-              onClick={(e) => e.stopPropagation()}
+            className="bg-slate-200 rounded-2xl shadow-lg overflow-hidden group relative flex flex-col h-full"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
             >
-              {/* <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Make Your Order</h2> */}
-              <div className="mb-6 text-center">
-                <img
-                  src={selectedImage}
-                  alt={name}
-                  loading="lazy"
-                  className="w-48 h-36 mx-auto object-cover rounded-lg shadow-md"
+            {/* Image Section */}
+            <div className="relative aspect-[4/5] overflow-hidden flex-shrink-0">
+                <button onClick={handleCommandClick} aria-label="Command" className="absolute inset-0 z-10">
+                <motion.img
+                    src={selectedImage}
+                    alt={name}
+                    className="w-full h-full object-cover"
+                    animate={{ scale: isHovered ? 1.1 : 1 }}
+                    transition={{ duration: 0.4 }}
+                    loading="lazy"
+                    onLoad={() => setIsImageLoading(false)}
                 />
-                {/* <h3 className="mt-2 text-lg font-semibold text-gray-900">{name}</h3> */}
-              </div>
+                </button>
+                {isImageLoading && (
+                <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+                )}
+                <motion.div
+                className="absolute inset-0 bg-black/10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isHovered ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                />
 
-              <form className="space-y-4" onSubmit={handleFormSubmit}>
-                <div>
-                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    placeholder="Name"
-                    value={fullName}
-                    onChange={handleNameChange}
-                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                    required
-                  />
-                  {nameError && (
-                    <p className="font-bold text-red-500 text-sm mt-1">{nameError}</p>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    placeholder="06xxxxxxxx"
-                    value={phone}
-                    onChange={handlePhoneChange}
-                    className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                    required
-                  />
-                  {phoneError && (
-                    <p className="font-bold text-red-500 text-sm mt-1">{phoneError}</p>
-                  )}
-                </div>
-                <motion.button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md flex items-center justify-center"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  disabled={isLoading}
+                <motion.div
+                className="absolute top-4 right-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isHovered ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
                 >
-                  {isLoading ? (
-                    <div className="spinner"></div>
-                  ) : (
-                    'Submit Order'
-                  )}
-                </motion.button>
-              </form>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <button
+                    aria-label="Add to favorites"
+                    className="p-2 bg-white rounded-full shadow-md hover:bg-purple-50 transition-colors"
+                >
+                    <Heart className="w-5 h-5 text-slate-500" />
+                </button>
+                </motion.div>
+            </div>
 
-      <AnimatePresence>
-        {isOrderSubmitted && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-          >
-            <motion.div
-              initial={{ scale: 0.8, y: 50 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 50 }}
-              transition={{ type: 'spring', stiffness: 100, damping: 10 }}
-              className="bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl p-8 text-center text-white shadow-2xl"
-            >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: 'spring', stiffness: 100, damping: 10 }}
-              >
-                <Check className="w-16 h-16 mx-auto mb-4" />
-              </motion.div>
-              <h2 className="text-3xl font-bold mb-2">Order Confirmed!</h2>
-              <p className="text-lg">Thank you for your visit.</p>
+            {/* Content Section - grows to fill space */}
+            <div className="p-6 flex flex-col flex-grow">
+                <div className="flex items-center mb-2">
+                {[...Array(5)].map((_, i) => (
+                    <Star
+                    key={i}
+                    className={clsx(
+                        'w-4 h-4',
+                        i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                    )}
+                    />
+                ))}
+                <span className="ml-2 text-sm text-gray-600">{rating}</span>
+                </div>
+
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                {name}
+                </h3>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                {types.map((image, index) => (
+                    <button
+                    key={index}
+                    onClick={() => setSelectedImage(image)}
+                    aria-label={`Select ${name} image ${index + 1}`}
+                    className={clsx(
+                        'w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 transition-all hover:scale-105',
+                        selectedImage === image ? 'border-purple-600' : 'border-gray-200'
+                    )}
+                    >
+                    <img
+                        src={image}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                    />
+                    </button>
+                ))}
+                </div>
+
+                {/* Price and Button Section - pushes button to bottom */}
+                <div className="mt-auto pt-4">
+                <div className="flex items-center justify-between mb-4">
+                    <p className="text-xl font-bold text-emerald-500">{price}<span className="ml-1 text-slate-600">Dhs</span></p>
+                </div>
+                
+                {/* Full-width Command button */}
+                <motion.button
+                    className="w-full px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
+                    whileHover={{ 
+                    scale: 1.02,
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleCommandClick}
+                >
+                    Command
+                </motion.button>
+                </div>
+            </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+
+            <AnimatePresence>
+            {isCommandFormOpen && (
+                <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+                onClick={() => setIsCommandFormOpen(false)}
+                >
+                <motion.div
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 50, opacity: 0 }}
+                    className="bg-white shadow-2xl rounded-lg p-6 w-full max-w-md relative"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {/* <h2 className="text-center w-full text-2xl font-bold text-gray-900 mb-6">Make Your Order</h2> */}
+                    <div className="mb-6 text-center">
+                    <img
+                        src={selectedImage}
+                        alt={name}
+                        loading="lazy"
+                        className="w-48 h-36 mx-auto object-cover rounded-lg shadow-md"
+                    />
+                    {/* <h3 className="mt-2 text-lg font-semibold text-gray-900">{name}</h3> */}
+                    </div>
+
+                    <form className="space-y-4" onSubmit={handleFormSubmit}>
+                    <div>
+                        <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+                        Name
+                        </label>
+                        <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Name"
+                        value={fullName}
+                        onChange={handleNameChange}
+                        className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                        required
+                        />
+                        {nameError && (
+                        <p className="font-bold text-red-500 text-sm mt-1">{nameError}</p>
+                        )}
+                    </div>
+                    <div>
+                        <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                        Address
+                        </label>
+                        <input
+                        type="text"
+                        id="address"
+                        placeholder="Address"
+                        value={address}
+                        onChange={handleAddressChange}
+                        className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                        required
+                        />
+                        {addressError && (
+                        <p className="font-bold text-red-500 text-sm mt-1">{addressError}</p>
+                        )}
+                    </div>
+                    <div>
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                        Phone Number
+                        </label>
+                        <input
+                        type="tel"
+                        id="phone"
+                        placeholder="06xxxxxxxx"
+                        value={phone}
+                        onChange={handlePhoneChange}
+                        className="p-2 font-bold h-12 mt-1 block w-full rounded-md border border-slate-400 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                        required
+                        />
+                        {phoneError && (
+                        <p className="font-bold text-red-500 text-sm mt-1">{phoneError}</p>
+                        )}
+                    </div>
+                    <motion.button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md flex items-center justify-center"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                        <div className="spinner"></div>
+                        ) : (
+                        'Submit Order'
+                        )}
+                    </motion.button>
+                    </form>
+                </motion.div>
+                </motion.div>
+            )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+            {isOrderSubmitted && (
+                <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+                >
+                <motion.div
+                    initial={{ scale: 0.8, y: 50 }}
+                    animate={{ scale: 1, y: 0 }}
+                    exit={{ scale: 0.8, y: 50 }}
+                    transition={{ type: 'spring', stiffness: 100, damping: 10 }}
+                    className="bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl p-8 text-center text-white shadow-2xl"
+                >
+                    <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2, type: 'spring', stiffness: 100, damping: 10 }}
+                    >
+                    <Check className="w-16 h-16 mx-auto mb-4" />
+                    </motion.div>
+                    <h2 className="text-3xl font-bold mb-2">Order Confirmed!</h2>
+                    <p className="text-lg">Thank you for your visit.</p>
+                </motion.div>
+                </motion.div>
+            )}
+            </AnimatePresence>
+        </>
+    );
 }
 
 function PortfolioItem({ image, title, category }) {
