@@ -260,15 +260,15 @@ function App() {
                     >
                         {/* Backdrop with blur effect */}
                         <div 
-                        className="absolute inset-0"
-                        onClick={() => setIsMenuOpen(false)}
+                            className="absolute inset-0"
+                            onClick={() => setIsMenuOpen(false)}
                         />
                         <motion.div
-                        className="relative mx-4 mt-20 rounded-xl overflow-hidden"
-                        initial={{ y: -20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -20, opacity: 0 }}
-                        transition={{ type: "spring", damping: 25 }}
+                            className="relative mx-4 mt-20 rounded-xl overflow-hidden"
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -20, opacity: 0 }}
+                            transition={{ type: "spring", damping: 25 }}
                         >
                         {/* Glass effect menu */}
                         <div className="bg-white/20 backdrop-blur-lg shadow-xl">
@@ -290,13 +290,12 @@ function App() {
             </nav>
 
             <section className="min-h-screen bg-black relative px-4 sm:px-6 lg:px-8 overflow-hidden">
-                {/* Black background that will show until video loads */}
                 {/* <div className={`absolute inset-0 z-0 ${!videoLoaded ? 'bg-black' : ''}`}>
                     {!videoLoaded && (
                     <div className="absolute inset-0 flex items-center justify-center">
                     </div>
                     )}
-                    
+
                     <video
                         autoPlay
                         loop
@@ -316,6 +315,13 @@ function App() {
                     Your browser does not support the video tag.
                     </video>
                 </div> */}
+
+                <div className='absolute inset-0 z-0'>
+                    <img
+                        className='w-full h-full object-cover'
+                        src={image1}
+                    />
+                </div>
 
                 {/* Centered content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
