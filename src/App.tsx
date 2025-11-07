@@ -119,24 +119,16 @@ const Header = () => {
 };
 
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [videoLoaded, setVideoLoaded] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWelcome(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    const fadeIn = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.6 },
+    };
 
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
-  };
-
-  const products = [
+    const products = [
         {
             name: "Mini Focus, Montre chronographe à quartz dorée pour homme",
             types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/02/644046/1.jpg?7447", "https://ma.jumia.is/unsafe/fit-in/150x150/filters:fill(white)/product/02/644046/3.jpg?7449", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/02/644046/2.jpg?7447"],
@@ -152,10 +144,10 @@ function App() {
         {
             name: "CASIO, Pour Homme cadran argente - Dateur jours/mois - Bracelet cuir marron -MTP-1381L-7AVDF",
             types: [
-              "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/1.jpg?3481",
-              "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/4.jpg?3481",
+                "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/1.jpg?3481",
+                "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/4.jpg?3481",
                 "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/72/358975/7.jpg?3481",
-              ],
+                ],
             rating: 4.1,
             price: 830.00
         },
@@ -172,16 +164,16 @@ function App() {
             price: 399.00
         },
         {
-          name: "Benyar, Montre chronographe à quartz argentée et noire pour homme",
-          types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/2.jpg?1525", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/1.jpg?1525", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/3.jpg?1525"],
-          rating: 4.7,
-          price: 349.00,
+            name: "Benyar, Montre chronographe à quartz argentée et noire pour homme",
+            types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/2.jpg?1525", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/1.jpg?1525", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/62/097685/3.jpg?1525"],
+            rating: 4.7,
+            price: 349.00,
         },
         {
-          name: "Benyar, Montre à quartz chronographe pour homme avec bracelet en cuir marron et résistante à l'eau",
-          types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/1.jpg?3806","https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/04/573445/5.jpg?1759", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/4.jpg?5931", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/2.jpg?5981"],
-          rating: 4.5,
-          price: 349.00
+            name: "Benyar, Montre à quartz chronographe pour homme avec bracelet en cuir marron et résistante à l'eau",
+            types: ["https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/1.jpg?3806","https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/04/573445/5.jpg?1759", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/4.jpg?5931", "https://ma.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/83/573445/2.jpg?5981"],
+            rating: 4.5,
+            price: 349.00
         },
         {
             name: "Casio Homme - Cadran noir - Bracelet en acier inydable - MTP-1374D-1AVDF", 
@@ -215,230 +207,228 @@ function App() {
         // }
     ];
 
-  return (
-    <div className="min-h-screen">
-        <Analytics />
-      <AnimatePresence>
-        {showWelcome && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.2 }}
-            className="fixed inset-0 flex items-center justify-center bg-black z-50"
-          >
-            <h1 className="text-center w-full text-5xl sm:text-4xl md:text-6xl text-slate-200 font-black font-['Lobster']">
-              Welcome to Elkamel Store
-            </h1>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    return (
+        <div className="min-h-screen">
+            <Analytics />
+            {/* <AnimatePresence>
+                {showWelcome && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.2 }}
+                    className="fixed inset-0 flex items-center justify-center bg-black z-50"
+                >
+                    <h1 className="text-center w-full text-5xl sm:text-4xl md:text-6xl text-slate-200 font-black font-['Lobster']">
+                    Welcome to Elkamel Store
+                    </h1>
+                </motion.div>
+                )}
+            </AnimatePresence> */}
 
-      <nav className="fixed w-full z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Header />
+            <nav className="bg-black fixed w-full z-40">
+                <div className="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-16">
+                        <Header />
 
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline  space-x-4 font-bold text-md text-slate-300">
-                <a className='hover:text-slate-800 transition-colors' href="#products">Products</a>
-                <a href="#portfolio">Featured</a>
-                <a href="#contact">Contact</a>
-              </div>
-            </div>
+                        <div className="hidden md:block">
+                            <div className="ml-10 flex items-baseline  space-x-4 font-bold text-md text-slate-300">
+                                <a className='hover:text-slate-800 transition-colors' href="#products">Products</a>
+                                <a href="#portfolio">Featured</a>
+                                <a href="#contact">Contact</a>
+                            </div>
+                        </div>
 
-            <div className="md:hidden">
-              <button
-                aria-label="Toggle menu"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-slate-300 hover:text-slate-400 transition-colors"
-              >
-                {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
-              </button>
-            </div>
-          </div>
+                        <div className="md:hidden">
+                            <button
+                                aria-label="Toggle menu"
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                className="text-slate-300 hover:text-slate-400 transition-colors"
+                            >
+                                {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {isMenuOpen && (
+                    <motion.div
+                        className="md:hidden fixed inset-0 z-50"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {/* Backdrop with blur effect */}
+                        <div 
+                        className="absolute inset-0"
+                        onClick={() => setIsMenuOpen(false)}
+                        />
+                        <motion.div
+                        className="relative mx-4 mt-20 rounded-xl overflow-hidden"
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -20, opacity: 0 }}
+                        transition={{ type: "spring", damping: 25 }}
+                        >
+                        {/* Glass effect menu */}
+                        <div className="bg-white/20 backdrop-blur-lg shadow-xl">
+                            <div className="px-5 py-3 space-y-4">
+                            <a href="#products" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
+                                Products
+                            </a>
+                            <a href="#portfolio" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
+                                Featured
+                            </a>
+                            <a href="#contact" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
+                                Contact
+                            </a>
+                            </div>
+                        </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </nav>
+
+            <section className="min-h-screen bg-black relative px-4 sm:px-6 lg:px-8 overflow-hidden">
+                {/* Black background that will show until video loads */}
+                {/* <div className={`absolute inset-0 z-0 ${!videoLoaded ? 'bg-black' : ''}`}>
+                    {!videoLoaded && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                    </div>
+                    )}
+                    
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"  // Important for Instagram browser
+                        className={`w-full h-full object-cover ${!videoLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}
+                        onCanPlay={() => {
+                            setVideoLoaded(true);
+                            // Force play in case Instagram browser blocks autoplay
+                            document.querySelector('video')?.play().catch(e => console.log('Autoplay prevented:', e));
+                        }}
+                        onWaiting={() => setVideoLoaded(false)}
+                        onError={() => setVideoLoaded(false)}
+                    >
+                    <source src={b} type="video/mp4" />
+                    Your browser does not support the video tag.
+                    </video>
+                </div> */}
+
+                {/* Centered content */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+                    <motion.div 
+                    className="text-center w-full px-4 flex flex-col items-center"
+                    initial="initial"
+                    animate="animate"
+                    variants={fadeIn}
+                    >
+                    <h1 className="text-5xl font-bold md:text-6xl font-['Lobster'] text-white mb-6">
+                        Discover Your Style
+                    </h1>
+                    <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
+                        Stylish accessories for today's trends
+                    </p>
+                    <div className="flex flex-col items-center font-black text-xl">
+                        <motion.button
+                        className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
+                        px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 
+                        transition-all shadow-lg flex items-center justify-center gap-2 "
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => smoothScroll('products')}
+                        >
+                        Shop Now
+                        <motion.span
+                            animate={{
+                            y: [0, 5, 0],
+                            }}
+                            transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            repeatType: "loop",
+                            }}
+                        >
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="-rotate-90"
+                            >
+                            <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </motion.span>
+                        </motion.button>
+                    </div>
+                    </motion.div>
+                </div>
+            </section>
+            <section id="products" className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <motion.div
+                    className="text-center mb-16"
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true }}
+                    variants={fadeIn}
+                >
+                    <h2 className="text-4xl font-['Lobster'] text-gray-900 mb-4">Our Products</h2>
+                    <p className="text-xl text-gray-600">Discover our latest collection</p>
+                </motion.div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 flex-wrap">
+                    {products.map((product, index) => (
+                    <ProductCard key={index} {...product} />
+                    ))}
+                </div>
+                </div>
+            </section>
+
+            <section id="portfolio" className="py-20 bg-slate-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <motion.div
+                    className="text-center mb-16"
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true }}
+                    variants={fadeIn}
+                >
+                    <h2 className="text-4xl font-['Lobster'] text-gray-900 mb-4">Featured Collections</h2>
+                    <p className="text-xl text-gray-600">Trending styles and seasonal favorites</p>
+                </motion.div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <PortfolioItem
+                    image={image1}
+                    title="Summer Collection"
+                    category="Seasonal"
+                    />
+                    <PortfolioItem
+                    image={image2}
+                    title="Autumn Essentials"
+                    category="Featured"
+                    />
+                    <PortfolioItem
+                    image={image3}
+                    title="Winter Wear"
+                    category="New Arrival"
+                    />
+                </div>
+                </div>
+            </section>
+
+            <ContactForm />
+
+            <Footer />
         </div>
-
-        {isMenuOpen && (
-  <motion.div
-    className="md:hidden fixed inset-0 z-50"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.3 }}
-  >
-    {/* Backdrop with blur effect */}
-    <div 
-      className="absolute inset-0"
-      onClick={() => setIsMenuOpen(false)}
-    />
-    <motion.div
-      className="relative mx-4 mt-20 rounded-xl overflow-hidden"
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: -20, opacity: 0 }}
-      transition={{ type: "spring", damping: 25 }}
-    >
-      {/* Glass effect menu */}
-      <div className="bg-white/20 backdrop-blur-lg shadow-xl">
-        <div className="px-5 py-3 space-y-4">
-          <a href="#products" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
-            Products
-          </a>
-          <a href="#portfolio" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
-            Featured
-          </a>
-          <a href="#contact" isMobile className="text-slate-300 hover:text-slate-100 block px-3 py-2 rounded-lg hover:bg-white/10 transition-all">
-            Contact
-          </a>
-        </div>
-      </div>
-    </motion.div>
-  </motion.div>
-)}
-      </nav>
-
-      <section className="min-h-screen relative px-4 sm:px-6 lg:px-8 overflow-hidden">
-  {/* Black background that will show until video loads */}
-  <div className={`absolute inset-0 z-0 ${!videoLoaded ? 'bg-black' : ''}`}>
-    {/* Optional loading indicator */}
-    {!videoLoaded && (
-      <div className="absolute inset-0 flex items-center justify-center">
-      </div>
-    )}
-    
-    {/* Video element with improved loading handling */}
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="auto"  // Important for Instagram browser
-      className={`w-full h-full object-cover ${!videoLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}
-      onCanPlay={() => {
-        setVideoLoaded(true);
-        // Force play in case Instagram browser blocks autoplay
-        document.querySelector('video')?.play().catch(e => console.log('Autoplay prevented:', e));
-      }}
-      onWaiting={() => setVideoLoaded(false)}
-      onError={() => setVideoLoaded(false)}
-    >
-      <source src={b} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
-
-  {/* Centered content */}
-  <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-    <motion.div 
-      className="text-center w-full px-4 flex flex-col items-center"
-      initial="initial"
-      animate="animate"
-      variants={fadeIn}
-    >
-      <h1 className="text-5xl font-bold md:text-6xl font-['Lobster'] text-white mb-6">
-        Discover Your Style
-      </h1>
-      <p className="text-2xl text-slate-400 mb-8 max-w-2xl mx-auto">
-        Stylish accessories for today's trends
-      </p>
-      <div className="flex flex-col items-center font-black text-xl">
-        <motion.button
-          className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white 
-          px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-teal-700 
-          transition-all shadow-lg flex items-center justify-center gap-2 "
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => smoothScroll('products')}
-        >
-          Shop Now
-          <motion.span
-            animate={{
-              y: [0, 5, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="-rotate-90"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </motion.span>
-        </motion.button>
-      </div>
-    </motion.div>
-  </div>
-</section>
-      <section id="products" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeIn}
-          >
-            <h2 className="text-4xl font-['Lobster'] text-gray-900 mb-4">Our Products</h2>
-            <p className="text-xl text-gray-600">Discover our latest collection</p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 flex-wrap">
-            {products.map((product, index) => (
-              <ProductCard key={index} {...product} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="portfolio" className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeIn}
-          >
-            <h2 className="text-4xl font-['Lobster'] text-gray-900 mb-4">Featured Collections</h2>
-            <p className="text-xl text-gray-600">Trending styles and seasonal favorites</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <PortfolioItem
-              image={image1}
-              title="Summer Collection"
-              category="Seasonal"
-            />
-            <PortfolioItem
-              image={image2}
-              title="Autumn Essentials"
-              category="Featured"
-            />
-            <PortfolioItem
-              image={image3}
-              title="Winter Wear"
-              category="New Arrival"
-            />
-          </div>
-        </div>
-      </section>
-
-      <ContactForm />
-
-      <Footer />
-    </div>
   );
 }
 
